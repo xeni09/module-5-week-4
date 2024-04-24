@@ -1,0 +1,182 @@
+{
+	"info": {
+		"_postman_id": "d3dd9db5-b1fe-4d97-8d4b-024d2ffde3d9",
+		"name": "Fourth Week Activities",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "31133698"
+	},
+	"item": [
+		{
+			"name": "01 - Create new User (201)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Pepe Perez\",\n    \"email\": \"contact@inesfuentes.com\",\n    \"password\": \"Hola123456!\",\n    \"bio\": \"Esta es mi biografía\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/users"
+			},
+			"response": []
+		},
+		{
+			"name": "01 - Create new User (wrong email)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Pepe Perez\",\n    \"email\": \"email.com\",\n    \"password\": \"1234\",\n    \"bio\": \"Esta es mi biografía\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/users"
+			},
+			"response": []
+		},
+		{
+			"name": "Login - User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"contact@inesfuentes.com\",\n    \"password\": \"Hola123456!\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/login"
+			},
+			"response": []
+		},
+		{
+			"name": "01 - Create new Post (201)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Título\",\n    \"text\": \"Esto es la parte del text del post!\",\n    \"author\": \"Nombre del post\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/posts"
+			},
+			"response": []
+		},
+		{
+			"name": "03 Get User - List All",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer ",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": "http://localhost:8000/users"
+			},
+			"response": []
+		},
+		{
+			"name": "03 Get Post - List All",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer ",
+						"type": "text"
+					}
+				],
+				"url": "http://localhost:8000/posts"
+			},
+			"response": []
+		},
+		{
+			"name": "03 Get Post - List one with ID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer ",
+						"type": "text"
+					}
+				],
+				"url": "http://localhost:8000/posts/PleaseReplaceID"
+			},
+			"response": []
+		},
+		{
+			"name": "04 Patch - Change Title",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Título editado\"\n    \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/posts/PleaseReplaceID"
+			},
+			"response": []
+		},
+		{
+			"name": "05 Delete - with Post ID",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Título editado\"\n    \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/posts/PleaseReplaceID"
+			},
+			"response": []
+		}
+	]
+}
