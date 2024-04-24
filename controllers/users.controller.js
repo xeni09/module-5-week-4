@@ -1,6 +1,7 @@
 const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
 
 module.exports.verify = (req, res) => {
   const token = req.query.token;
@@ -30,8 +31,12 @@ module.exports.create = (req, res) => {
       const token = jwt.sign({ sub: user.id }, process.env.JWT_SECRET);
       const verifyUrl = `http://localhost:8000/users/verify?token=${token}`;
 
-      // Todo: Send email with verification link
-      console.log(verifyUrl);
+      // Send email with verification link
+      this.sendEmail(
+        user.email,
+        "Verify your account",
+        `Please click the following link to verify your account: ${verifyUrl}`
+      );
 
       res.status(201).json(user);
     })
@@ -99,6 +104,33 @@ module.exports.delete = (req, res) => {
     .catch(console.error);
 };
 
+module.exports.sendEmail = (email, subject, text) => {
+  let transporter = nodemailer.createTransport({
+    host: "smtp.hostinger.com",
+    port: 465,
+    secure: true,
+    auth: {
+      user: "test1@inesrf.com",
+      pass: "Afdjghg67!",
+    },
+  });
+
+  let mailOptions = {
+    from: "test1@inesrf.com",
+    to: email,
+    subject: subject,
+    text: text,
+  };
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Email sent: " + info.response);
+    }
+  });
+};
+
 module.exports.login = (req, res) => {
   User.findOne({ email: req.body.email })
     .then(async (user) => {
@@ -116,7 +148,7 @@ module.exports.login = (req, res) => {
         );
         res.json({ token });
       } else if (user && !user.active) {
-        res.status(401).json({ message: "User has not been yet actived" });
+        res.status(401).json({ message: "User has not been yet activated" });
       } else {
         res
           .status(401)
